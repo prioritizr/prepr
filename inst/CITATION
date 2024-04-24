@@ -1,0 +1,19 @@
+citHeader("To cite the prepr package in publications, please use:")
+
+bibentry(
+  bibtype = "Article",
+  title = "A triangulation-based approach to automatically repair GIS polygons",
+  author = c(
+    person(c("Hugo"), "Ledoux"),
+    person(c("Ken"), c("Arroyo", "Ohori")),
+    person(c("Martijn"), "Meijers")
+  ),
+  year = "2014",
+  journal = "Computers & Geosciences",
+  volume = "66",
+  number = "1",
+  pages = "121--131",
+  doi = "https://doi.org/10.1016/j.cageo.2014.01.009"
+)
+
+citFooter("For package version, use \"packageVersion('prepr')\"\n\n")

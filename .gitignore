@@ -1,0 +1,56 @@
+Meta
+doc
+# C++ compiled files
+*.o
+*.so
+*.dll
+
+# temporary files
+approximation.R
+simulation.R
+vignettes/simulation_files/figure-html/*png
+src/Makevars
+gmp_test
+gmp_test.cpp
+mpfr_test
+mpfr_test.cpp
+errors.txt
+
+# R profile files
+*.Rproj.user
+*.Rhistory
+.Rproj.user
+
+# log files
+gurobi.log
+test.log
+check.log
+spell.log
+gp.log
+benchmark.log
+examples.log
+
+# system files
+.directory
+
+# debugging files
+debug*R
+config.status
+config.log
+autom4te.cache/*
+
+# do not ignore the following files
+!.gitkeep
+!*/
+!inst/doc/*.html
+!inst/doc/*.Rmd
+!inst/doc/.gitkeep
+
+# devtools files
+doc/*
+Meta/*
+.build.timestamp
+.DS_Store
+*.tmp
+/doc/
+/Meta/

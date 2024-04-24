@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>prepr: Automatic Repair of Spatial Polygons</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">prepr: Automatic Repair of Spatial Polygons</h1>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#tutorial">Tutorial</a>
+<ul>
+<li><a href="#two-adjacent-inner-rings">Two adjacent inner rings:</a></li>
+<li><a href="#polygon-with-an-inner-ring-inside-another-inner-ring">Polygon with an inner ring inside another inner ring</a></li>
+</ul></li>
+<li><a href="#citation">Citation</a></li>
+<li><a href="#getting-help">Getting help</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>The <em>prepr R</em> R package is used to repair broken spatial polygons. To achieve this, the package uses the constrained triangulation approach implemented in the <a href="https://github.com/tudelft3d/prepair"><code>prepair</code></a> C++ library (<a href="https://doi.org/10.1016/j.cageo.2014.01.009">Ledoux et al. 2014</a>). Specifically, the main <code>st_prepair()</code> function is used to repair polygons.</p>
+</div>
+<div id="tutorial" class="section level2">
+<h2>Tutorial</h2>
+<p>Here we provide a short tutorial showing how the <em>prepr</em> package can be used to repair broken polygon geometries. To start with, we will load the package. We will also load the <em>sf</em> package for working with spatial data.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)    <span class="co"># package for working with spatial data</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prepr) <span class="co"># package for repairing spatial geometries</span></span></code></pre></div>
+<p>We will now show how the <em>prepr</em> package can be used to repair broken geometries. To achieve this, we will examine a range of different mechanisms by which polygons can be broken. For each of these mechanisms, we will manually create a broken polygon geometry based on the mechanism, repair the geometry (using <code>st_prepair()</code>), and then compare the repaired geometry with the original broken geometry. We will also confirm that the broken geometries have indeed been repaired (using <code>sf::st_is_valid()</code>).</p>
+<div id="a-bowtie-polygon" class="section level4">
+<h4>A ‘bowtie’ polygon</h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create broken polygon</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">&quot;POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># verify that polygon is broken, and display reason why it&#39;s broken</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_valid</span>(x, <span class="at">reason =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Self-intersection[5 5]&quot;</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># repair the polygon</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">st_prepair</span>(x)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># verify that repaired polygon is NOT broken</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_valid</span>(y)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize the polygons</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="at">main =</span> <span class="st">&quot;original&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#999999&quot;</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">st_coordinates</span>(<span class="fu">st_cast</span>(x, <span class="st">&quot;POINT&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;#e41a1c&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y, <span class="at">main =</span> <span class="st">&quot;repaired&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#999999&quot;</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">st_coordinates</span>(<span class="fu">st_cast</span>(y, <span class="st">&quot;POINT&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;#e41a1c&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="square-with-wrong-orientation" class="section level4">
+<h4>Square with wrong orientation</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create broken polygon</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">&quot;POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))&quot;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># verify that polygon is broken, and display reason why it&#39;s broken</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_valid</span>(x, <span class="at">reason =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Valid Geometry&quot;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># repair the polygon</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">st_prepair</span>(x)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># verify that repaired polygon is NOT broken</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_valid</span>(y)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize the polygons</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="at">main =</span> <span class="st">&quot;original&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#999999&quot;</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">st_coordinates</span>(<span class="fu">st_cast</span>(x, <span class="st">&quot;POINT&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;#e41a1c&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y, <span class="at">main =</span> <span class="st">&quot;repaired&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#999999&quot;</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">st_coordinates</span>(<span class="fu">st_cast</span>(y, <span class="st">&quot;POINT&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;#e41a1c&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="inner-ring-with-one-edge-sharing-part-of-an-edge-of-the-outer-ring" class="section level4">
+<h4>Inner ring with one edge sharing part of an edge of the outer ring</h4>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create broken polygon</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;POLYGON((0 0, 10 0, 10 10, 0 10, 0 0),(5 2, 5 7, 10 7, 10 2, 5 2))&quot;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># verify that polygon is broken, and display reason why it&#39;s broken</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_valid</span>(x, <span class="at">reason =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Self-intersection[10 2]&quot;</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># repair the polygon</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">st_prepair</span>(x)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># verify that repaired polygon is NOT broken</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_valid</span>(y)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize the polygons</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="at">main =</span> <span class="st">&quot;original&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#999999&quot;</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">st_coordinates</span>(<span class="fu">st_cast</span>(x, <span class="st">&quot;POINT&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;#e41a1c&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y, <span class="at">main =</span> <span class="st">&quot;repaired&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#999999&quot;</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">st_coordinates</span>(<span class="fu">st_cast</span>(y, <span class="st">&quot;POINT&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;#e41a1c&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="dangling-edge" class="section level4">
+<h4>Dangling edge:</h4>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create broken polygon</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">&quot;POLYGON((0 0, 10 0, 15 5, 10 0, 10 10, 0 10, 0 0))&quot;</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># verify that polygon is broken, and display reason why it&#39;s broken</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_valid</span>(x, <span class="at">reason =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Self-intersection[15 5]&quot;</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># repair the polygon</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">st_prepair</span>(x)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># verify that repaired polygon is NOT broken</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_valid</span>(y)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize the polygons</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="at">main =</span> <span class="st">&quot;original&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#999999&quot;</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">st_coordinates</span>(<span class="fu">st_cast</span>(x, <span class="st">&quot;POINT&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;#e41a1c&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y, <span class="at">main =</span> <span class="st">&quot;repaired&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#999999&quot;</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">st_coordinates</span>(<span class="fu">st_cast</span>(y, <span class="st">&quot;POINT&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;#e41a1c&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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3vu+Vg5b+4RKf5Xbs3nlNRhQX7zyFBGoLwQGKCIwQBGBAYoIDFBEYIAiAgMUERigiMAARQQGKCIwQBGBAYoIDFBEYIAiAgMUERigiMAARQQGKCIwQBGBAYoIDFBEYIAiAgMUERigiMAARQQGKCIwQBGBAYoIDFBEYIAiAgMUERigiMAARQQGKCIwQBGBAYoIDFBEYIAiAgMUERigiMAARQQGKCIwQBGBAYoIDFBEYIAiAgMUERigiMAARQQGKCIwQBGBAYoIDFBEYIAiAgMUERigiMAARQQGKCIwQBGBAYoIDFBEYIAiAgMUERigiMAARbaGHgBwTcebx5f+uvnxrFq/txZvryusYPAMVwVThy9WRWDwGC5m4z51CYHBs1Qbj1vVJd52DebKOf219lBDncTDo3nvCna8eXzllq5z/HO3Q6PX8qwd4V0r2PW5cvrBOuYOUlNTr/XU6/U5Dhd4e2A044kiIiIaegiu8vbASrl+h4ogG1xycvI1n/v0s3ocSPW89xqslGed0yMjfXJDD6EGCExEpEuXLg09BNQNd8uPwERE+vTp4/qLq7z9iPrhbv1Ui8BERBISEhp6CKiei3W5VYTc5HCv/YEq1XQfOV/f/6UpOsOpAVawYmTmhlKCAhaOebrWuyYjfXJG+uTeIUEHFi+q24G5ztsDK7/zaAx1zqsDq1wUjaFueek12HVCcp/TdzQC3hVYSlDA8OHDo6Kiqn1lRvrkdevWJSQkjF/6QT0MDI2VdwW2/sIlmTtPqjsVdC5f/UVky7b6GRgaKy+9Buv/0pRrnQRycog65KWBOVVuibpQt7w6MKlYFHWhznnXNdh1UJcbKr1mllp9glJ2Lf3EcOHHtjUU0vIINdpN17nGrmcEJiKyadOmhh4CqudiM26SlhOBiYgEBga6/uLmx7P4R80Npdp43KouITCnefPmNfQQ0DgRGD/w0MO42xp1fdxFLNb8eJYr/06ZGt3BypUrr/VU//ochwu8PTCC8UQpKSnXfG7P3nocSPUM0zQbegz1p9r/0ub6ixg11rNa/Bhzd/vJ5967glU5484HK+8k0nIfnrUvvCswF/eNZ+1ClOfitXS94S4iPInHHfsIDB7DE09ACAyeoUbZuM/ftvGuu4hAPWMFAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiv4fa+3c8peKkkcAAAAASUVORK5CYII=" style="display: block; margin: auto;" /></p>
+</div>
+<div id="two-adjacent-inner-rings" class="section level3">
+<h3>Two adjacent inner rings:</h3>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create broken polygon</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;POLYGON((0 0, 10 0, 10 10, 0 10, 0 0),&quot;</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;(1 1, 1 8, 3 8, 3 1, 1 1), (3 1, 3 8, 5 8, 5 1, 3 1))&quot;</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># verify that polygon is broken, and display reason why it&#39;s broken</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_valid</span>(x, <span class="at">reason =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Self-intersection[3 8]&quot;</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># repair the polygon</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">st_prepair</span>(x)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># verify that repaired polygon is NOT broken</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_valid</span>(y)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize the polygons</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="at">main =</span> <span class="st">&quot;original&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#999999&quot;</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">st_coordinates</span>(<span class="fu">st_cast</span>(x, <span class="st">&quot;POINT&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;#e41a1c&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y, <span class="at">main =</span> <span class="st">&quot;repaired&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#999999&quot;</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">st_coordinates</span>(<span class="fu">st_cast</span>(y, <span class="st">&quot;POINT&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;#e41a1c&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="polygon-with-an-inner-ring-inside-another-inner-ring" class="section level3">
+<h3>Polygon with an inner ring inside another inner ring</h3>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create broken polygon</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;POLYGON((0 0, 10 0, 10 10, 0 10, 0 0),&quot;</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;(2 8, 5 8, 5 2, 2 2, 2 8), (3 3, 4 3, 3 4, 3 3))&quot;</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># verify that polygon is broken, and display reason why it&#39;s broken</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_valid</span>(x, <span class="at">reason =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Holes are nested[3 3]&quot;</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># repair the polygon</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">st_prepair</span>(x)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># verify that repaired polygon is NOT broken</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_valid</span>(y)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize the polygons</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="at">main =</span> <span class="st">&quot;original&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#999999&quot;</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">st_coordinates</span>(<span class="fu">st_cast</span>(x, <span class="st">&quot;POINT&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;#e41a1c&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y, <span class="at">main =</span> <span class="st">&quot;repaired&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#999999&quot;</span>)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">st_coordinates</span>(<span class="fu">st_cast</span>(y, <span class="st">&quot;POINT&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;#e41a1c&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="citation" class="section level2">
+<h2>Citation</h2>
+<p>We recommend citing the methodology that underpins the <em>prepr R</em> package. To cite this work, please use:</p>
+<blockquote>
+<p>Ledoux H, Arroyo Ohori K, and Meijers M (2014) A triangulation-based approach to automatically repair GIS polygons. <em>Computers &amp; Geosciences</em> 66:121–131.</p>
+</blockquote>
+</div>
+<div id="getting-help" class="section level2">
+<h2>Getting help</h2>
+<p>If you have any questions about using the <em>prepr R</em> package or suggestions for improving it, please <a href="https://github.com/prioritizr/prepr/issues/new">file an issue at the package’s online code repository</a>.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

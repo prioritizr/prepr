@@ -1,0 +1,12 @@
+#!/bin/sh
+
+rm -rf config.* \
+       src/Makevars \
+       config.log \
+       config.status \
+       autom4te.cache \
+       gdal_test.cpp \
+       gdal_test \
+       gmp_test.cpp \
+       mpfr_test.cpp \
+       errors.txt

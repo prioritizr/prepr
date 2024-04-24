@@ -1,0 +1,18 @@
+.r-plt img {
+  background: #FFFFFF;
+}
+
+.page-header {
+  border-bottom: none !important;
+  padding-bottom: 0px !important;
+  min-height: 0px !important;
+}
+
+#automatic-repair-of-spatial-polygons {
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+.template-home img.logo {
+  width: 140px;
+}

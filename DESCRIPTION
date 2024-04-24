@@ -1,0 +1,79 @@
+Package: prepr
+Type: Package
+Title: Automatic Repair of Spatial Polygons
+Version: 0.3.0
+Description:
+    Automatically repair broken spatial polygons using constrained
+    triangulation. The computational methodology is derived from
+    Ledoux et al. (2014) <doi:10.1016/j.cageo.2014.01.009>.
+Authors@R:
+    c(
+      person(
+        'Ahmadou', 'Dicko',
+        email = 'mail@ahmadoudicko.com',
+        role = c('aut')
+      ),
+      person(
+        c('Jeffrey', 'O'), 'Hanson',
+        email = 'jeffrey.hanson@uqconnect.edu.au',
+        role = c('aut', 'cre'),
+        comment = c(ORCID = '0000-0002-4716-6134')
+      ),
+      person(
+        'Edzer', 'Pebesma',
+        email = 'edzer.pebesma@uni-muenster.de',
+        role = 'ctb',
+        comment = c(ORCID = '0000-0001-8049-7069')
+      ),
+      person(
+        'Ken', 'Arroyo Ohori',
+        email = 'g.a.k.arroyoohori@tudelft.nl',
+        role = c('ctb', 'cph'),
+        comment = 'https://github.com/tudelft3d/prepair'
+      ),
+      person(
+        'Hugo', 'Ledoux',
+        email = 'h.ledoux@tudelft.nl',
+        role = c('ctb', 'cph'),
+        comment = 'https://github.com/tudelft3d/prepair'
+      ),
+      person(
+        'Martijn', 'Meijers',
+        email = 'b.m.meijers@tudelft.nl',
+        role = c('ctb', 'cph'),
+        comment = 'https://github.com/tudelft3d/prepair'
+      )
+    )
+Imports:
+    Rcpp (>= 1.0.12),
+    sf (>= 1.0.8)
+Suggests:
+    testthat (>= 2.0.1),
+    knitr (>= 1.2.0),
+    roxygen2 (>= 6.1.1),
+    rmarkdown (>= 1.10),
+Depends:
+    R (>= 4.2.0)
+LinkingTo:
+    Rcpp (>= 1.0.12),
+    BH (>= 1.71.0.0),
+    sf (>= 1.0.8),
+    RcppCGAL (>= 5.6.2),
+    RcppEigen (>= 0.3.4.0.0)
+SystemRequirements:
+    gmp (>= 4.2.3),
+    mpfr (>= 3.0.0)
+    gdal (>= 2.0.1)
+License: GPL-3
+Encoding: UTF-8
+URL: https://github.com/prioritizr/prepr
+BugReports: https://github.com/prioritizr/prepr/issues
+VignetteBuilder: knitr
+RoxygenNote: 7.3.1
+Collate:
+    'RcppExports.R'
+    'package.R'
+    'utils.R'
+    'st_prepair.R'
+Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3

@@ -1,0 +1,20 @@
+authors:
+  Jeffrey O Hanson:
+    href: http://jeffrey-hanson.com
+  Ahmadou Dicko:
+      href: https://ahmadoudicko.com
+
+template:
+  bootstrap: 5
+  params:
+    bootswatch: flatly
+
+reference:
+  - title: Summary
+    desc: Summary of the package
+    contents:
+      - prepr
+  - title: Main functions
+    desc: Functions for working with data
+    contents:
+      - st_prepair
