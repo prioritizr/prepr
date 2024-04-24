@@ -9,6 +9,7 @@ output:
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
+  fig.align = "center",
   out.width = "80%"
 )
 ```
@@ -22,7 +23,6 @@ knitr::opts_chunk$set(
 [![R-CMD-check-Ubuntu](https://img.shields.io/github/actions/workflow/status/prioritizr/prepr/R-CMD-check-ubuntu.yaml?branch=master&label=Ubuntu)](https://github.com/prioritizr/prepr/actions)
 [![R-CMD-check-Windows](https://img.shields.io/github/actions/workflow/status/prioritizr/prepr/R-CMD-check-windows.yaml?branch=master&label=Windows)](https://github.com/prioritizr/prepr/actions)
 [![R-CMD-check-macOS](https://img.shields.io/github/actions/workflow/status/prioritizr/prepr/R-CMD-check-macos.yaml?branch=master&label=macOS)](https://github.com/prioritizr/prepr/actions)
-[![Documentation](https://img.shields.io/github/actions/workflow/status/prioritizr/prepr/documentation.yaml?branch=master&label=Documentation)](https://github.com/prioritizr/prepr/actions)
 [![Coverage Status](https://img.shields.io/codecov/c/github/prioritizr/prepr?label=Coverage)](https://app.codecov.io/gh/prioritizr/prepr/branch/master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/prepr)](https://CRAN.R-project.org/package=prepr)
 <!-- badges: end -->
@@ -33,7 +33,7 @@ devtools::load_all()
 
 ### Overview
 
-The _prepr R_ R package is used to repair broken spatial polygons. To achieve this, the package uses the constrained triangulation approach implemented in the [`prepair`](https://github.com/tudelft3d/prepair) C++ library ([Ledoux et al. 2014](https://doi.org/10.1016/j.cageo.2014.01.009)). Specifically, the main `st_prepair()` function is used to repair polygons. For more information, please see the package vignette.
+The _prepr R_ R package is used to repair broken spatial polygons. To achieve this, the package uses the constrained triangulation approach implemented in the [`prepair`](https://github.com/tudelft3d/prepair) C++ library ([Ledoux et al. 2014](https://doi.org/10.1016/j.cageo.2014.01.009)). Specifically, the `st_prepair()` function is used to repair polygons. For more information, please see the package vignette.
 
 ### Installation
 
@@ -66,7 +66,7 @@ For Unix-alikes, `gmp` (>= 4.2.3), `mpfr` (>= 3.0.0), and `gdal` (>= 2.0.1) are 
 
 #### macOS
 
-The `gmp`, `mpfr`, and `gdal` libraries are required. The easiest way to install these libraries is using [HomeBrew](https://brew.sh/). After installing HomeBrew, these libraries can be installed using the following commands in the system terminal:
+The `pkg-config`, `gmp`, `mpfr`, and `gdal` libraries are required. The easiest way to install these libraries is using [HomeBrew](https://brew.sh/). After installing HomeBrew, these libraries can be installed using the following commands in the system terminal:
 
 ```
 brew install pkg-config

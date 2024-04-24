@@ -92,9 +92,9 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span>    <span class="co"># package for working with spatial data</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.com/dickoa/prepr" class="external-link">prepr</a></span><span class="op">)</span> <span class="co"># package for repairing spatial geometries</span></span></code></pre></div>
 <p>We will now show how the <em>prepr</em> package can be used to repair broken geometries. To achieve this, we will examine a range of different mechanisms by which polygons can be broken. For each of these mechanisms, we will manually create a broken polygon geometry based on the mechanism, repair the geometry (using <code><a href="../reference/st_prepair.html">st_prepair()</a></code>), and then compare the repaired geometry with the original broken geometry. We will also confirm that the broken geometries have indeed been repaired (using <code><a href="https://r-spatial.github.io/sf/reference/valid.html" class="external-link">sf::st_is_valid()</a></code>).</p>
-<div class="section level4">
-<h4 id="a-bowtie-polygon">A ‘bowtie’ polygon<a class="anchor" aria-label="anchor" href="#a-bowtie-polygon"></a>
-</h4>
+<div class="section level3">
+<h3 id="a-bowtie-polygon">A ‘bowtie’ polygon<a class="anchor" aria-label="anchor" href="#a-bowtie-polygon"></a>
+</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create broken polygon</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html" class="external-link">st_as_sfc</a></span><span class="op">(</span><span class="st">"POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))"</span><span class="op">)</span></span>
@@ -118,9 +118,9 @@
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html" class="external-link">st_coordinates</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html" class="external-link">st_cast</a></span><span class="op">(</span><span class="va">y</span>, <span class="st">"POINT"</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"#e41a1c"</span>, pch <span class="op">=</span> <span class="fl">16</span>, cex <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="prepr_files/figure-html/example1-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
-<div class="section level4">
-<h4 id="square-with-wrong-orientation">Square with wrong orientation<a class="anchor" aria-label="anchor" href="#square-with-wrong-orientation"></a>
-</h4>
+<div class="section level3">
+<h3 id="square-with-wrong-orientation">Square with wrong orientation<a class="anchor" aria-label="anchor" href="#square-with-wrong-orientation"></a>
+</h3>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create broken polygon</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html" class="external-link">st_as_sfc</a></span><span class="op">(</span><span class="st">"POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))"</span><span class="op">)</span></span>
@@ -144,9 +144,9 @@
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html" class="external-link">st_coordinates</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html" class="external-link">st_cast</a></span><span class="op">(</span><span class="va">y</span>, <span class="st">"POINT"</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"#e41a1c"</span>, pch <span class="op">=</span> <span class="fl">16</span>, cex <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="prepr_files/figure-html/example2-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
-<div class="section level4">
-<h4 id="inner-ring-with-one-edge-sharing-part-of-an-edge-of-the-outer-ring">Inner ring with one edge sharing part of an edge of the outer ring<a class="anchor" aria-label="anchor" href="#inner-ring-with-one-edge-sharing-part-of-an-edge-of-the-outer-ring"></a>
-</h4>
+<div class="section level3">
+<h3 id="inner-ring-with-one-edge-sharing-part-of-an-edge-of-the-outer-ring">Inner ring with one edge sharing part of an edge of the outer ring<a class="anchor" aria-label="anchor" href="#inner-ring-with-one-edge-sharing-part-of-an-edge-of-the-outer-ring"></a>
+</h3>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create broken polygon</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html" class="external-link">st_as_sfc</a></span><span class="op">(</span></span>
@@ -172,9 +172,9 @@
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html" class="external-link">st_coordinates</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html" class="external-link">st_cast</a></span><span class="op">(</span><span class="va">y</span>, <span class="st">"POINT"</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"#e41a1c"</span>, pch <span class="op">=</span> <span class="fl">16</span>, cex <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="prepr_files/figure-html/example3-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
-<div class="section level4">
-<h4 id="dangling-edge">Dangling edge:<a class="anchor" aria-label="anchor" href="#dangling-edge"></a>
-</h4>
+<div class="section level3">
+<h3 id="dangling-edge">Dangling edge<a class="anchor" aria-label="anchor" href="#dangling-edge"></a>
+</h3>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create broken polygon</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html" class="external-link">st_as_sfc</a></span><span class="op">(</span><span class="st">"POLYGON((0 0, 10 0, 15 5, 10 0, 10 10, 0 10, 0 0))"</span><span class="op">)</span></span>
@@ -199,7 +199,7 @@
 <p><img src="prepr_files/figure-html/example4-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
-<h3 id="two-adjacent-inner-rings">Two adjacent inner rings:<a class="anchor" aria-label="anchor" href="#two-adjacent-inner-rings"></a>
+<h3 id="two-adjacent-inner-rings">Two adjacent inner rings<a class="anchor" aria-label="anchor" href="#two-adjacent-inner-rings"></a>
 </h3>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create broken polygon</span></span>

@@ -80,7 +80,7 @@
 <div class="section level3">
 <h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h3>
-<p>The <em>prepr R</em> R package is used to repair broken spatial polygons. To achieve this, the package uses the constrained triangulation approach implemented in the <a href="https://github.com/tudelft3d/prepair" class="external-link"><code>prepair</code></a> C++ library (<a href="https://doi.org/10.1016/j.cageo.2014.01.009" class="external-link">Ledoux et al. 2014</a>). Specifically, the main <code><a href="reference/st_prepair.html">st_prepair()</a></code> function is used to repair polygons. For more information, please see the package vignette.</p>
+<p>The <em>prepr R</em> R package is used to repair broken spatial polygons. To achieve this, the package uses the constrained triangulation approach implemented in the <a href="https://github.com/tudelft3d/prepair" class="external-link"><code>prepair</code></a> C++ library (<a href="https://doi.org/10.1016/j.cageo.2014.01.009" class="external-link">Ledoux et al. 2014</a>). Specifically, the <code><a href="reference/st_prepair.html">st_prepair()</a></code> function is used to repair polygons. For more information, please see the package vignette.</p>
 </div>
 <div class="section level3">
 <h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -97,10 +97,12 @@
 <div class="section level4">
 <h4 id="ubuntu">Ubuntu<a class="anchor" aria-label="anchor" href="#ubuntu"></a>
 </h4>
-<p>The <code>gmp</code>, <code>mpfr</code>, and <code>gdal</code> libraries need to be installed to install the <em>surveyvoi R</em> package. For recent versions of Ubuntu (18.04 and later), these libraries are available through official repositories. They can be installed using the following system commands:</p>
+<p>The <code>gmp</code>, <code>mpfr</code>, and <code>gdal</code> libraries need to be installed to install the <em>prepr R</em> package. For recent versions of Ubuntu (18.04 and later), these libraries are available through official repositories. They can be installed using the following system commands:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sudo add<span class="sc">-</span>apt<span class="sc">-</span>repository ppa<span class="sc">:</span>ubuntugis<span class="sc">/</span>ubuntugis<span class="sc">-</span>unstable</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sudo apt<span class="sc">-</span>get <span class="sc">-</span>y update</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sudo apt<span class="sc">-</span>get install libudunits2<span class="sc">-</span>dev libgdal<span class="sc">-</span>dev libgeos<span class="sc">-</span>dev libproj<span class="sc">-</span>dev libsqlite0<span class="sc">-</span>dev libgmp3<span class="sc">-</span>dev libmpfr<span class="sc">-</span>dev</span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sudo apt<span class="sc">-</span>get install \</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  libudunits2<span class="sc">-</span>dev libgdal<span class="sc">-</span>dev libgeos<span class="sc">-</span>dev libproj<span class="sc">-</span>dev \</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  libsqlite0<span class="sc">-</span>dev libgmp3<span class="sc">-</span>dev libmpfr<span class="sc">-</span>dev</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="linux">Linux<a class="anchor" aria-label="anchor" href="#linux"></a>
@@ -110,7 +112,7 @@
 <div class="section level4">
 <h4 id="macos">macOS<a class="anchor" aria-label="anchor" href="#macos"></a>
 </h4>
-<p>The <code>gmp</code>, <code>mpfr</code>, and <code>gdal</code> libraries are required. The easiest way to install these libraries is using <a href="https://brew.sh/" class="external-link">HomeBrew</a>. After installing HomeBrew, these libraries can be installed using the following commands in the system terminal:</p>
+<p>The <code>pkg-config</code>, <code>gmp</code>, <code>mpfr</code>, and <code>gdal</code> libraries are required. The easiest way to install these libraries is using <a href="https://brew.sh/" class="external-link">HomeBrew</a>. After installing HomeBrew, these libraries can be installed using the following commands in the system terminal:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>brew install pkg<span class="sc">-</span>config</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>brew install gmp</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>brew install mpfr</span>
@@ -155,7 +157,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html" class="external-link">st_coordinates</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html" class="external-link">st_cast</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"POINT"</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"#e41a1c"</span>, pch <span class="op">=</span> <span class="fl">16</span>, cex <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">y</span>, main <span class="op">=</span> <span class="st">"repaired"</span>, col <span class="op">=</span> <span class="st">"#999999"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html" class="external-link">st_coordinates</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html" class="external-link">st_cast</a></span><span class="op">(</span><span class="va">y</span>, <span class="st">"POINT"</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"#e41a1c"</span>, pch <span class="op">=</span> <span class="fl">16</span>, cex <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-figure-1.png" width="80%"></p>
+<p><img src="reference/figures/README-figure-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>Although we can see that both of the polygons (shown in gray) appear visually identical, the repaired polygon (<code>y</code>) has an additional vertex (red point) in the center of the ‘bowtie’. This extra vertex is important to maintain the validity fo the spatial polygon. For more information and additional examples, see the <a href="https://prioritizr.github.io/prepr/articles/prepr.html" class="external-link">package vignette</a>.</p>
 </div>
 <div class="section level3">
@@ -206,7 +208,6 @@
 <li><a href="https://github.com/prioritizr/prepr/actions" class="external-link"><img src="https://img.shields.io/github/actions/workflow/status/prioritizr/prepr/R-CMD-check-ubuntu.yaml?branch=master&amp;label=Ubuntu" alt="R-CMD-check-Ubuntu"></a></li>
 <li><a href="https://github.com/prioritizr/prepr/actions" class="external-link"><img src="https://img.shields.io/github/actions/workflow/status/prioritizr/prepr/R-CMD-check-windows.yaml?branch=master&amp;label=Windows" alt="R-CMD-check-Windows"></a></li>
 <li><a href="https://github.com/prioritizr/prepr/actions" class="external-link"><img src="https://img.shields.io/github/actions/workflow/status/prioritizr/prepr/R-CMD-check-macos.yaml?branch=master&amp;label=macOS" alt="R-CMD-check-macOS"></a></li>
-<li><a href="https://github.com/prioritizr/prepr/actions" class="external-link"><img src="https://img.shields.io/github/actions/workflow/status/prioritizr/prepr/documentation.yaml?branch=master&amp;label=Documentation" alt="Documentation"></a></li>
 <li><a href="https://app.codecov.io/gh/prioritizr/prepr/branch/master" class="external-link"><img src="https://img.shields.io/codecov/c/github/prioritizr/prepr?label=Coverage" alt="Coverage Status"></a></li>
 <li><a href="https://CRAN.R-project.org/package=prepr" class="external-link"><img src="http://www.r-pkg.org/badges/version/prepr" alt="CRAN_Status_Badge"></a></li>
 </ul>

@@ -13,8 +13,8 @@ vignette: >
 
 ```{r, include = FALSE}
 # define variables for vignette figures and code execution
-h <- 3.5
-w <- 3.5
+h <- 4.0
+w <- 7.0
 is_check <-
   ("CheckExEnv" %in% search()) ||
   any(c("_R_CHECK_TIMINGS_", "_R_CHECK_LICENSE_") %in% names(Sys.getenv())) ||
@@ -59,7 +59,7 @@ y <- st_prepair(x)
 st_is_valid(y)
 
 # visualize the polygons
-par(mfrow = c(1, 2))
+par(mfrow = c(1, 2), mar = c(0, 0, 2.5, 0))
 plot(x, main = "original", col = "#999999")
 points(st_coordinates(st_cast(x, "POINT")), col = "#e41a1c", pch = 16, cex = 2)
 plot(y, main = "repaired", col = "#999999")
@@ -82,7 +82,7 @@ y <- st_prepair(x)
 st_is_valid(y)
 
 # visualize the polygons
-par(mfrow = c(1, 2))
+par(mfrow = c(1, 2), mar = c(0, 0, 2.5, 0))
 plot(x, main = "original", col = "#999999")
 points(st_coordinates(st_cast(x, "POINT")), col = "#e41a1c", pch = 16, cex = 2)
 plot(y, main = "repaired", col = "#999999")
@@ -107,7 +107,7 @@ y <- st_prepair(x)
 st_is_valid(y)
 
 # visualize the polygons
-par(mfrow = c(1, 2))
+par(mfrow = c(1, 2), mar = c(0, 0, 2.5, 0))
 plot(x, main = "original", col = "#999999")
 points(st_coordinates(st_cast(x, "POINT")), col = "#e41a1c", pch = 16, cex = 2)
 plot(y, main = "repaired", col = "#999999")
@@ -130,7 +130,7 @@ y <- st_prepair(x)
 st_is_valid(y)
 
 # visualize the polygons
-par(mfrow = c(1, 2))
+par(mfrow = c(1, 2), mar = c(0, 0, 2.5, 0))
 plot(x, main = "original", col = "#999999")
 points(st_coordinates(st_cast(x, "POINT")), col = "#e41a1c", pch = 16, cex = 2)
 plot(y, main = "repaired", col = "#999999")
@@ -158,7 +158,7 @@ y <- st_prepair(x)
 st_is_valid(y)
 
 # visualize the polygons
-par(mfrow = c(1, 2))
+par(mfrow = c(1, 2), mar = c(0, 0, 2.5, 0))
 plot(x, main = "original", col = "#999999")
 points(st_coordinates(st_cast(x, "POINT")), col = "#e41a1c", pch = 16, cex = 2)
 plot(y, main = "repaired", col = "#999999")
@@ -186,7 +186,7 @@ y <- st_prepair(x)
 st_is_valid(y)
 
 # visualize the polygons
-par(mfrow = c(1, 2))
+par(mfrow = c(1, 2), mar = c(0, 0, 2.5, 0))
 plot(x, main = "original", col = "#999999")
 points(st_coordinates(st_cast(x, "POINT")), col = "#e41a1c", pch = 16, cex = 2)
 plot(y, main = "repaired", col = "#999999")

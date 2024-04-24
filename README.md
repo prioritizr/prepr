@@ -11,7 +11,6 @@
 [![R-CMD-check-Ubuntu](https://img.shields.io/github/actions/workflow/status/prioritizr/prepr/R-CMD-check-ubuntu.yaml?branch=master&label=Ubuntu)](https://github.com/prioritizr/prepr/actions)
 [![R-CMD-check-Windows](https://img.shields.io/github/actions/workflow/status/prioritizr/prepr/R-CMD-check-windows.yaml?branch=master&label=Windows)](https://github.com/prioritizr/prepr/actions)
 [![R-CMD-check-macOS](https://img.shields.io/github/actions/workflow/status/prioritizr/prepr/R-CMD-check-macos.yaml?branch=master&label=macOS)](https://github.com/prioritizr/prepr/actions)
-[![Documentation](https://img.shields.io/github/actions/workflow/status/prioritizr/prepr/documentation.yaml?branch=master&label=Documentation)](https://github.com/prioritizr/prepr/actions)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/prioritizr/prepr?label=Coverage)](https://app.codecov.io/gh/prioritizr/prepr/branch/master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/prepr)](https://CRAN.R-project.org/package=prepr)
@@ -24,7 +23,7 @@ achieve this, the package uses the constrained triangulation approach
 implemented in the [`prepair`](https://github.com/tudelft3d/prepair) C++
 library ([Ledoux et
 al. 2014](https://doi.org/10.1016/j.cageo.2014.01.009)). Specifically,
-the main `st_prepair()` function is used to repair polygons. For more
+the `st_prepair()` function is used to repair polygons. For more
 information, please see the package vignette.
 
 ### Installation
@@ -48,13 +47,15 @@ software provides system requirements from
 #### Ubuntu
 
 The `gmp`, `mpfr`, and `gdal` libraries need to be installed to install
-the *surveyvoi R* package. For recent versions of Ubuntu (18.04 and
-later), these libraries are available through official repositories.
-They can be installed using the following system commands:
+the *prepr R* package. For recent versions of Ubuntu (18.04 and later),
+these libraries are available through official repositories. They can be
+installed using the following system commands:
 
     sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
     sudo apt-get -y update
-    sudo apt-get install libudunits2-dev libgdal-dev libgeos-dev libproj-dev libsqlite0-dev libgmp3-dev libmpfr-dev
+    sudo apt-get install \
+      libudunits2-dev libgdal-dev libgeos-dev libproj-dev \
+      libsqlite0-dev libgmp3-dev libmpfr-dev
 
 #### Linux
 
@@ -63,10 +64,10 @@ For Unix-alikes, `gmp` (&gt;= 4.2.3), `mpfr` (&gt;= 3.0.0), and `gdal`
 
 #### macOS
 
-The `gmp`, `mpfr`, and `gdal` libraries are required. The easiest way to
-install these libraries is using [HomeBrew](https://brew.sh/). After
-installing HomeBrew, these libraries can be installed using the
-following commands in the system terminal:
+The `pkg-config`, `gmp`, `mpfr`, and `gdal` libraries are required. The
+easiest way to install these libraries is using
+[HomeBrew](https://brew.sh/). After installing HomeBrew, these libraries
+can be installed using the following commands in the system terminal:
 
     brew install pkg-config
     brew install gmp
@@ -133,7 +134,7 @@ plot(y, main = "repaired", col = "#999999")
 points(st_coordinates(st_cast(y, "POINT")), col = "#e41a1c", pch = 16, cex = 2)
 ```
 
-<img src="man/figures/README-figure-1.png" width="80%" />
+<img src="man/figures/README-figure-1.png" width="80%" style="display: block; margin: auto;" />
 
 Although we can see that both of the polygons (shown in gray) appear
 visually identical, the repaired polygon (`y`) has an additional vertex
