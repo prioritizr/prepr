@@ -24,7 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-14, r: 'release'}
+          - {os: macos-latest, r: 'release'}
 
     env:
       _R_REMOTES_NO_ERRORS_FROM_WARNINGS_: true
