@@ -191,6 +191,12 @@ else
   MPFR_LIBS="-lmpfr -lgmp -lpthread"
 fi
 
+## display compilation flags
+AC_MSG_NOTICE([GMP_CFLAGS: ${GMP_CFLAGS}])
+AC_MSG_NOTICE([GMP_LIBS: ${GMP_LIBS}])
+AC_MSG_NOTICE([MPFR_CFLAGS: ${MPFR_CFLAGS}])
+AC_MSG_NOTICE([MPFR_LIBS: ${MPFR_LIBS}])
+
 # Verify GMP settings work
 ## display message
 AC_MSG_CHECKING([if ${GMP_NAME} compiles])

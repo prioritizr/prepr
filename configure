@@ -2031,6 +2031,16 @@ else
   MPFR_LIBS="-lmpfr -lgmp -lpthread"
 fi
 
+## display compilation flags
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: GMP_CFLAGS: ${GMP_CFLAGS}" >&5
+printf "%s\n" "$as_me: GMP_CFLAGS: ${GMP_CFLAGS}" >&6;}
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: GMP_LIBS: ${GMP_LIBS}" >&5
+printf "%s\n" "$as_me: GMP_LIBS: ${GMP_LIBS}" >&6;}
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: MPFR_CFLAGS: ${MPFR_CFLAGS}" >&5
+printf "%s\n" "$as_me: MPFR_CFLAGS: ${MPFR_CFLAGS}" >&6;}
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: MPFR_LIBS: ${MPFR_LIBS}" >&5
+printf "%s\n" "$as_me: MPFR_LIBS: ${MPFR_LIBS}" >&6;}
+
 # Verify GMP settings work
 ## display message
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking if ${GMP_NAME} compiles" >&5
