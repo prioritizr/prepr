@@ -283,7 +283,7 @@ rm -f mpfr_test errors.txt mpfr_test.cpp
 # Export settings
 ## store all compilations flags
 PKG_CPPFLAGS="${CPPFLAGS} ${GDAL_CPPFLAGS} ${CGAL_CPPFLAGS} ${GMP_CFLAGS} ${MPFR_CFLAGS}"
-PKG_LIBS="${LIBS} ${GDAL_LIBS} ${GMP_LIBS} ${MPFR_LIBS}"
+PKG_LIBS="${LIBS} ${GDAL_LIBS} ${GMP_LIBS} ${GDAL_DEP_LIBS} ${MPFR_LIBS}"
 
 ## print message indicating success
 AC_MSG_NOTICE([Package CPP flags: ${PKG_CPPFLAGS}])
