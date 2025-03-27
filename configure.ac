@@ -15,6 +15,7 @@ if test -z "${R_HOME}"; then
 fi
 AC_MSG_RESULT([yes])
 
+
 ## verify suitable R version
 RBIN="${R_HOME}/bin/R"
 RSCRIPT="${R_HOME}/bin/Rscript"
