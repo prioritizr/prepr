@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl GDAL stuff largely copied from sf, (c) Edzer Pebesma
 AC_PREREQ([2.69])
-AC_INIT([prepr], [see.DESCRIPTION], [https://github.com/dickoa/prepr/issues])
+AC_INIT([prepr], [see.DESCRIPTION], [https://github.com/prepr/prepr/issues])
 AC_CONFIG_SRCDIR([src/prepr.cpp])
 
 # Preliminary processing

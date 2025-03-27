@@ -1,3 +1,8 @@
+# prepr 0.3.0.1
+
+- Update configuration script to specify correct repository location (#3).
+  Thanks to Jason Everett (\@jaseeverett) for bug report.
+
 # prepr 0.3.0
 
 - Fix installation on M1 Mac systems.

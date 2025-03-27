@@ -43,7 +43,7 @@ library(prepr) # package for repairing spatial geometries
 
 We will now show how the _prepr_ package can be used to repair broken geometries. To achieve this, we will examine a range of different mechanisms by which polygons can be broken. For each of these mechanisms, we will manually create a broken polygon geometry based on the mechanism, repair the geometry (using `st_prepair()`), and then compare the repaired geometry with the original broken geometry. We will also confirm that the broken geometries have indeed been repaired (using `sf::st_is_valid()`).
 
-#### A 'bowtie' polygon
+### A 'bowtie' polygon
 
 ```{r example1}
 # create broken polygon
@@ -66,7 +66,7 @@ plot(y, main = "repaired", col = "#999999")
 points(st_coordinates(st_cast(y, "POINT")), col = "#e41a1c", pch = 16, cex = 2)
 ```
 
-#### Square with wrong orientation
+### Square with wrong orientation
 
 ```{r example2}
 # create broken polygon
@@ -89,7 +89,7 @@ plot(y, main = "repaired", col = "#999999")
 points(st_coordinates(st_cast(y, "POINT")), col = "#e41a1c", pch = 16, cex = 2)
 ```
 
-#### Inner ring with one edge sharing part of an edge of the outer ring
+### Inner ring with one edge sharing part of an edge of the outer ring
 
 ```{r example3}
 # create broken polygon
@@ -114,7 +114,7 @@ plot(y, main = "repaired", col = "#999999")
 points(st_coordinates(st_cast(y, "POINT")), col = "#e41a1c", pch = 16, cex = 2)
 ```
 
-#### Dangling edge:
+### Dangling edge
 
 ```{r example4}
 # create broken polygon
@@ -137,7 +137,7 @@ plot(y, main = "repaired", col = "#999999")
 points(st_coordinates(st_cast(y, "POINT")), col = "#e41a1c", pch = 16, cex = 2)
 ```
 
-### Two adjacent inner rings:
+### Two adjacent inner rings
 
 ```{r example5}
 # create broken polygon

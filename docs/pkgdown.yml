@@ -1,7 +1,7 @@
-pandoc: '2.13'
-pkgdown: 2.0.7
+pandoc: '3.3'
+pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   prepr: prepr.html
-last_built: 2024-04-24T02:44Z
+last_built: 2025-03-27T20:38Z
 

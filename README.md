@@ -13,7 +13,7 @@
 [![R-CMD-check-macOS](https://img.shields.io/github/actions/workflow/status/prioritizr/prepr/R-CMD-check-macos.yaml?branch=master&label=macOS)](https://github.com/prioritizr/prepr/actions)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/prioritizr/prepr?label=Coverage)](https://app.codecov.io/gh/prioritizr/prepr/branch/master)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/prepr)](https://CRAN.R-project.org/package=prepr)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/prepr)](https://CRAN.R-project.org/package=prepr)
 <!-- badges: end -->
 
 ### Overview
@@ -59,8 +59,8 @@ installed using the following system commands:
 
 #### Linux
 
-For Unix-alikes, `gmp` (&gt;= 4.2.3), `mpfr` (&gt;= 3.0.0), and `gdal`
-(&gt;= 2.0.1) are required.
+For Unix-alikes, `gmp` (\>= 4.2.3), `mpfr` (\>= 3.0.0), and `gdal` (\>=
+2.0.1) are required.
 
 #### macOS
 
